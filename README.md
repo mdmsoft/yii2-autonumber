@@ -1,8 +1,7 @@
 Auto Number Extension for Yii 2
 ========================
 
-This extension provides a Web-based code generator, called Gii, for Yii 2 applications.
-You can use Gii to quickly generate models, forms, modules, CRUD, etc.
+Entar gan ya.....
 
 
 Installation
