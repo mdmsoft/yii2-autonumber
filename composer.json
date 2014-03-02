@@ -1,7 +1,8 @@
 {
 	"name": "mdmsoft/yii2-autonumber",
 	"description": "Auto number extension for the Yii framework",
-	"keywords": ["yii", "number generator"],
+	"keywords": ["yii2"," extension"," autonumber"," behavior"],
+	"license": "BSD-3-Clause",
 	"type": "yii2-extension",
 	"license": "BSD-3-Clause",
 	"authors": [
