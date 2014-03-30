@@ -3,6 +3,8 @@
 namespace mdm\autonumber;
 
 use yii\db\StaleObjectException;
+use yii\base\InvalidConfigException;
+use yii\db\BaseActiveRecord;
 
 /**
  * Description of AutoNumber
@@ -13,6 +15,20 @@ class Behavior extends \yii\behaviors\AttributeBehavior
 {
 
 	public $digit;
+	public $group;
+	public $attribute;
+
+
+	public function init()
+	{
+		if($this->group === null){
+			throw new InvalidConfigException('property group ');
+		}
+		if($this->attribute !== null){
+			$this->attributes[BaseActiveRecord::EVENT_BEFORE_INSERT][] = $this->attribute;
+		}
+		parent::init();
+	}
 
 	protected function getValue($event)
 	{
@@ -21,11 +37,15 @@ class Behavior extends \yii\behaviors\AttributeBehavior
 		do {
 			$repeat = false;
 			try {
-				$ar = AutoNumber::find($value);
+				$ar = AutoNumber::find([
+					'template_group'=>  $this->group,
+					'template_num'=>$value,
+				]);
 				if ($ar) {
 					$number = $ar->auto_number + 1;
 				} else {
 					$ar = new AutoNumber;
+					$ar->template_group = $this->group;
 					$ar->template_num = $value;
 					$number = 1;
 				}

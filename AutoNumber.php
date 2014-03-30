@@ -24,9 +24,9 @@ class AutoNumber extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['template_num', 'auto_number'], 'required'],
+			[['template_group', 'template_num', 'auto_number'], 'required'],
 			[['auto_number'], 'integer'],
-			[['template_num'], 'string', 'max' => 20]
+			[['template_group','template_num'], 'string']
 		];
 	}
 
