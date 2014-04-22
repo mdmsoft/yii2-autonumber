@@ -5,6 +5,7 @@ namespace mdm\autonumber;
 use yii\db\StaleObjectException;
 use yii\base\InvalidConfigException;
 use yii\db\BaseActiveRecord;
+use Exception;
 
 /**
  * Description of AutoNumber
@@ -37,7 +38,7 @@ class Behavior extends \yii\behaviors\AttributeBehavior
 		do {
 			$repeat = false;
 			try {
-				$ar = AutoNumber::find([
+				$ar = AutoNumber::findOne([
 					'template_group'=>  $this->group,
 					'template_num'=>$value,
 				]);
@@ -52,7 +53,7 @@ class Behavior extends \yii\behaviors\AttributeBehavior
 				$ar->update_time = time();
 				$ar->auto_number = $number;
 				$ar->save();
-			} catch (\Exception $exc) {
+			} catch (Exception $exc) {
 				if ($exc instanceof StaleObjectException) {
 					$repeat = true;
 				} else {
