@@ -16,7 +16,7 @@ class AutoNumber extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'auto_number';
+        return '{{%auto_number}}';
     }
 
     /**
@@ -26,6 +26,7 @@ class AutoNumber extends \yii\db\ActiveRecord
     {
         return [
             [['template_group', 'template_num', 'auto_number'], 'required'],
+            [['optimistic_lock'], 'default', 'value' => 1],
             [['auto_number'], 'integer'],
             [['template_group', 'template_num'], 'string']
         ];

@@ -32,12 +32,20 @@ Once the extension is installed, simply modify your active record definision cla
 ```php
 public function behavior()
 {
-  return [
-	  'autonumber' => [
-		  'class' => 'mdm\autonumber\Behavior',
-		  ...
-	  ],
-	  ...
+	return [
+		[
+			'class' => 'mdm\autonumber\Behavior',
+			'attribute' => 'sales_num', // required
+			'group' => 'sales', // required, unique
+			'value' => 'SA-'.date('Y-m-d').'?' , // format auto number. '?' will be replaced with generated number
+			'digit' => 4 // optional, default to null. 
+		],
+		...
   ];
 }
+```
+
+Before it, prepare required table with execute yii migrate.
+```
+yii migrate --migrationPath=@mdm/autonumber/migrations
 ```
