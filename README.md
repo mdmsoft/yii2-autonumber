@@ -1,9 +1,6 @@
 Auto Number Extension for Yii 2
 ========================
 
-Entar gan ya.....
-
-
 Installation
 ------------
 
@@ -37,7 +34,7 @@ public function behavior()
 			'class' => 'mdm\autonumber\Behavior',
 			'attribute' => 'sales_num', // required
 			'group' => 'sales', // required, unique
-			'value' => 'SA-'.date('Y-m-d').'?' , // format auto number. '?' will be replaced with generated number
+			'value' => 'SA-'.date('Y-m-d').'?' , // format auto number. '.?' will be replaced with generated number
 			'digit' => 4 // optional, default to null. 
 		],
 		...
