@@ -24,6 +24,11 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
+Prepare required table by execute yii migrate.
+```
+yii migrate --migrationPath=@mdm/autonumber/migrations
+```
+
 Once the extension is installed, simply modify your active record definision class:
 
 ```php
@@ -40,9 +45,4 @@ public function behavior()
 		...
 	];
 }
-```
-
-Before it, prepare required table with execute yii migrate.
-```
-yii migrate --migrationPath=@mdm/autonumber/migrations
 ```
