@@ -13,8 +13,8 @@ class m140527_084418_auto_number extends \yii\db\Migration
             'auto_number' => Schema::TYPE_INTEGER . ' NOT NULL',
             'optimistic_lock' => Schema::TYPE_INTEGER . ' NOT NULL',
             'update_time' => Schema::TYPE_INTEGER,
+            'PRIMARY KEY (template_group, template_num)'
         ]);
-        $this->addPrimaryKey('auto_number_pk', '{{%auto_number}}', ['template_group','template_num']);
     }
 
     public function safeDown()
