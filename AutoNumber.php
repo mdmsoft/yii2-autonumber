@@ -5,8 +5,9 @@ namespace mdm\autonumber;
 /**
  * This is the model class for table "auto_number".
  *
- * @property string $template_num
- * @property integer $auto_number
+ * @property string $group
+ * @property string $template
+ * @property integer $number
  */
 class AutoNumber extends \yii\db\ActiveRecord
 {
@@ -25,10 +26,10 @@ class AutoNumber extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['template_group', 'template_num', 'auto_number'], 'required'],
-            [['optimistic_lock'], 'default', 'value' => 1],
-            [['auto_number'], 'integer'],
-            [['template_group', 'template_num'], 'string']
+            [['optimistic_lock', 'number'], 'default', 'value' => 1],
+            [['group', 'template', 'number'], 'required'],
+            [['number'], 'integer'],
+            [['group', 'template'], 'string']
         ];
     }
 
@@ -38,8 +39,8 @@ class AutoNumber extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'template_num' => 'Template Num',
-            'auto_number' => 'Auto Number',
+            'template' => 'Template Num',
+            'number' => 'Number',
         ];
     }
 

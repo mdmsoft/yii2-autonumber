@@ -3,7 +3,6 @@
 namespace mdm\autonumber;
 
 use yii\db\StaleObjectException;
-use yii\base\InvalidConfigException;
 use yii\db\BaseActiveRecord;
 use Exception;
 
@@ -14,15 +13,32 @@ use Exception;
  */
 class Behavior extends \yii\behaviors\AttributeBehavior
 {
+    /**
+     *
+     * @var integer digit number of auto number
+     */
     public $digit;
+
+    /**
+     *
+     * @var mixed 
+     */
     public $group;
+
+    /**
+     *
+     * @var boolean 
+     */
+    public $unique = true;
+
+    /**
+     *
+     * @var string 
+     */
     public $attribute;
 
     public function init()
     {
-        if ($this->group === null) {
-            throw new InvalidConfigException('property group ');
-        }
         if ($this->attribute !== null) {
             $this->attributes[BaseActiveRecord::EVENT_BEFORE_INSERT][] = $this->attribute;
         }
@@ -32,25 +48,29 @@ class Behavior extends \yii\behaviors\AttributeBehavior
     protected function getValue($event)
     {
         $value = parent::getValue($event);
-
+        $group = md5(serialize([
+            'class' => $this->unique ? get_class($this->owner) : false,
+            'group' => $this->group
+        ]));
         do {
             $repeat = false;
             try {
-                $ar = AutoNumber::findOne([
-                        'template_group' => $this->group,
-                        'template_num' => $value,
+                $model = AutoNumber::findOne([
+                        'group' => $group,
+                        'template' => $value,
                 ]);
-                if ($ar) {
-                    $number = $ar->auto_number + 1;
+                if ($model) {
+                    $number = $model->number + 1;
                 } else {
-                    $ar = new AutoNumber;
-                    $ar->template_group = $this->group;
-                    $ar->template_num = $value;
+                    $model = new AutoNumber([
+                        'group' => $group,
+                        'template' => $value,
+                    ]);
                     $number = 1;
                 }
-                $ar->update_time = time();
-                $ar->auto_number = $number;
-                $ar->save();
+                $model->update_time = time();
+                $model->number = $number;
+                $model->save();
             } catch (Exception $exc) {
                 if ($exc instanceof StaleObjectException) {
                     $repeat = true;
