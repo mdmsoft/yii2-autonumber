@@ -27,9 +27,9 @@ class AutoNumber extends \yii\db\ActiveRecord
     {
         return [
             [['optimistic_lock', 'number'], 'default', 'value' => 1],
-            [['group', 'template', 'number'], 'required'],
+            [['group'], 'required'],
             [['number'], 'integer'],
-            [['group', 'template'], 'string']
+            [['group'], 'string']
         ];
     }
 

@@ -50,21 +50,19 @@ class Behavior extends \yii\behaviors\AttributeBehavior
         $value = parent::getValue($event);
         $group = md5(serialize([
             'class' => $this->unique ? get_class($this->owner) : false,
-            'group' => $this->group
+            'group' => $this->group,
+            'attribute' => $this->attribute,
+            'value' => $value
         ]));
         do {
             $repeat = false;
             try {
-                $model = AutoNumber::findOne([
-                        'group' => $group,
-                        'template' => $value,
-                ]);
+                $model = AutoNumber::findOne($group);
                 if ($model) {
                     $number = $model->number + 1;
                 } else {
                     $model = new AutoNumber([
-                        'group' => $group,
-                        'template' => $value,
+                        'group' => $group
                     ]);
                     $number = 1;
                 }
@@ -79,6 +77,10 @@ class Behavior extends \yii\behaviors\AttributeBehavior
                 }
             }
         } while ($repeat);
-        return str_replace('?', $this->digit ? sprintf("%0{$this->digit}d", $number) : $number, $value);
+        if ($value === null) {
+            return $number;
+        } else {
+            return str_replace('?', $this->digit ? sprintf("%0{$this->digit}d", $number) : $number, $value);
+        }
     }
 }
