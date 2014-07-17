@@ -16,8 +16,5 @@
 	},
 	"autoload": {
 		"psr-4": { "mdm\\autonumber\\": "" }
-	},
-	"extra": {
-		"bootstrap": "mdm\\autonumber\\Bootstrap"
 	}
 }
