@@ -31,12 +31,11 @@ yii migrate --migrationPath=@mdm/autonumber/migrations
 if wantn't use db migration. you can create required table manually.
 ```sql
 CREATE TABLE auto_number (
-    template_group varchar(64) NOT NULL,
-    template_num varchar(64) NOT NULL,
-    auto_number int NOT NULL,
-    optimistic_lock int NOT NULL,
+    "group" varchar(32) NOT NULL,
+    "number" int,
+    optimistic_lock int,
     update_time int,
-    PRIMARY KEY (template_group, template_num)
+    PRIMARY KEY ("group")
 );
 ```
 Once the extension is installed, simply modify your ActiveRecord class:
@@ -48,7 +47,7 @@ public function behaviors()
 		[
 			'class' => 'mdm\autonumber\Behavior',
 			'attribute' => 'sales_num', // required
-			'group' => 'sales', // required, unique
+			'group' => $this->id_branch, // optional
 			'value' => 'SA.'.date('Y-m-d').'.?' , // format auto number. '?' will be replaced with generated number
 			'digit' => 4 // optional, default to null. 
 		],
@@ -57,4 +56,14 @@ public function behaviors()
 }
 
 // it will set value $model->sales_num as 'SA.2014-06-25.0001'
+```
+Instead of behavior, you can use this extension as validator
+```php
+public function rules()
+{
+    return [
+        [['sales_num'],'mdm\autonumber\NextValueValidator','format'=>'SA.'.date('Y-m-d').'.?'],
+        ...
+    ];
+}
 ```
