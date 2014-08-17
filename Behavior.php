@@ -21,19 +21,19 @@ class Behavior extends \yii\behaviors\AttributeBehavior
 
     /**
      *
-     * @var mixed 
+     * @var mixed
      */
     public $group;
 
     /**
      *
-     * @var boolean 
+     * @var boolean
      */
     public $unique = true;
 
     /**
      *
-     * @var string 
+     * @var string
      */
     public $attribute;
 

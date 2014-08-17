@@ -34,13 +34,13 @@ class NextValueValidator extends \yii\validators\Validator
 
     /**
      *
-     * @var mixed 
+     * @var mixed
      */
     public $group;
 
     /**
      *
-     * @var boolean 
+     * @var boolean
      */
     public $unique = true;
 
@@ -52,13 +52,13 @@ class NextValueValidator extends \yii\validators\Validator
 
     /**
      *
-     * @var boolean  
+     * @var boolean
      */
     public $throwIsStale = false;
 
     /**
      *
-     * @var array 
+     * @var array
      */
     private static $_executed = [];
 
@@ -73,9 +73,9 @@ class NextValueValidator extends \yii\validators\Validator
     }
 
     /**
-     * 
-     * @param \yii\db\ActiveRecord $object
-     * @param string $attribute
+     *
+     * @param  \yii\db\ActiveRecord $object
+     * @param  string               $attribute
      * @return int
      */
     public function nextValue($object, $attribute)
@@ -116,7 +116,7 @@ class NextValueValidator extends \yii\validators\Validator
     }
 
     /**
-     * 
+     *
      * @param \yii\base\ModelEvent $event
      */
     public function beforeSave($event)
