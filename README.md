@@ -11,6 +11,10 @@ Either run
 ```
 php composer.phar require --prefer-dist mdmsoft/yii2-autonumber "*"
 ```
+for dev-master
+```
+php composer.phar require --prefer-dist mdmsoft/yii2-autonumber "dev-master"
+```
 
 or add
 

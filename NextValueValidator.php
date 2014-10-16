@@ -6,9 +6,10 @@ use yii\db\ActiveRecord;
 use yii\db\StaleObjectException;
 
 /**
- * Description of NextValueValidator
+ * Validator use to fill autonumber
  *
- * @author Misbahul D Munir (mdmunir) <misbahuldmunir@gmail.com>
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
+ * @since 1.0
  */
 class NextValueValidator extends \yii\validators\Validator
 {
@@ -17,47 +18,41 @@ class NextValueValidator extends \yii\validators\Validator
      * be assigned to the attributes being validated if they are empty. The signature of the PHP callable
      * should be as follows,
      *
-     * ```php
+     * ~~~
      * function foo($model, $attribute) {
      *     // compute value
      *     return $value;
      * }
-     * ```
+     * ~~~
      */
     public $format;
 
     /**
-     *
      * @var integer digit number of auto number
      */
     public $digit;
 
     /**
-     *
      * @var mixed
      */
     public $group;
 
     /**
-     *
      * @var boolean
      */
     public $unique = true;
 
     /**
-     * @var boolean this property is overwritten to be false so that this validator will
-     * be applied when the value being validated is empty.
+     * @inheritdoc
      */
     public $skipOnEmpty = false;
 
     /**
-     *
      * @var boolean
      */
     public $throwIsStale = false;
 
     /**
-     *
      * @var array
      */
     private static $_executed = [];
@@ -73,7 +68,7 @@ class NextValueValidator extends \yii\validators\Validator
     }
 
     /**
-     *
+     * Calculate next value
      * @param  \yii\db\ActiveRecord $object
      * @param  string               $attribute
      * @return int
@@ -116,7 +111,7 @@ class NextValueValidator extends \yii\validators\Validator
     }
 
     /**
-     *
+     * Handle for [[\yii\base\ModelEvent::EVENT_BEFORE_SAVE]]
      * @param \yii\base\ModelEvent $event
      */
     public function beforeSave($event)

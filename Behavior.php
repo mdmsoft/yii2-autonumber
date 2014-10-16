@@ -7,36 +7,50 @@ use yii\db\BaseActiveRecord;
 use Exception;
 
 /**
- * Description of AutoNumber
+ * Behavior use to generate formated autonumber.
+ * Use at ActiveRecord behavior
+ * ~~~
+ * public function behavior()
+ * {
+ *     return [
+ *         ...
+ *         [
+ *             'class' => 'mdm\autonumber\Behavior',
+ *             'value' => date('Ymd').'.?', // ? will replace with generated number
+ *             'digit' => 6, // specify this if you need leading zero for number
+ *         ]
+ *     ]
+ * }
+ * ~~~
  *
- * @author MDMunir
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
+ * @since 1.0
  */
 class Behavior extends \yii\behaviors\AttributeBehavior
 {
     /**
-     *
      * @var integer digit number of auto number
      */
     public $digit;
 
     /**
-     *
      * @var mixed
      */
     public $group;
 
     /**
-     *
      * @var boolean
      */
     public $unique = true;
 
     /**
-     *
      * @var string
      */
     public $attribute;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         if ($this->attribute !== null) {
@@ -45,6 +59,9 @@ class Behavior extends \yii\behaviors\AttributeBehavior
         parent::init();
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getValue($event)
     {
         $value = parent::getValue($event);

@@ -8,6 +8,9 @@ namespace mdm\autonumber;
  * @property string $group
  * @property string $template
  * @property integer $number
+ * 
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
+ * @since 1.0
  */
 class AutoNumber extends \yii\db\ActiveRecord
 {
@@ -44,6 +47,9 @@ class AutoNumber extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function optimisticLock()
     {
         return 'optimistic_lock';
