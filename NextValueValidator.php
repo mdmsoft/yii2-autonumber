@@ -18,12 +18,12 @@ class NextValueValidator extends \yii\validators\Validator
      * be assigned to the attributes being validated if they are empty. The signature of the PHP callable
      * should be as follows,
      *
-     * ~~~
+     * ```php
      * function foo($model, $attribute) {
      *     // compute value
      *     return $value;
      * }
-     * ~~~
+     * ```
      */
     public $format;
 

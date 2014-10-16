@@ -1,5 +1,5 @@
 Auto Number Extension for Yii 2
-========================
+===============================
 
 Installation
 ------------
