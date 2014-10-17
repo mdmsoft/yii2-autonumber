@@ -82,9 +82,9 @@ class NextValueValidator extends \yii\validators\Validator
 
     /**
      * Calculate next value
-     * @param  \yii\db\ActiveRecord $object
-     * @param  string $attribute
-     * @return integer
+     * @param \yii\db\ActiveRecord $object
+     * @param string  $attribute
+     * @return string
      */
     public function nextValue($object, $attribute)
     {

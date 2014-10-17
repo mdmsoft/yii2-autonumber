@@ -1,5 +1,8 @@
 Auto Number Extension for Yii 2
-========================
+===============================
+
+Yii2 extension to genarete formated autonumber. It can be used for generate
+document number.
 
 Installation
 ------------
@@ -61,7 +64,6 @@ public function behaviors()
 			'value' => 'SA.'.date('Y-m-d').'.?' , // format auto number. '?' will be replaced with generated number
 			'digit' => 4 // optional, default to null. 
 		],
-		...
 	];
 }
 

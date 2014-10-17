@@ -35,12 +35,13 @@ class Behavior extends \yii\behaviors\AttributeBehavior
     public $digit;
 
     /**
-     * @var mixed
+     * @var mixed Optional. 
      */
     public $group;
 
     /**
-     * @var boolean
+     * @var boolean If set `true` number will genarate unique for owner classname.
+     * Default `true`. 
      */
     public $unique = true;
 

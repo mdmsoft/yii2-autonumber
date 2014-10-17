@@ -3,8 +3,7 @@
 use yii\db\Schema;
 
 /**
- * Database migration
- * 
+ * Migration table auto_number
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
