@@ -2,9 +2,18 @@
 
 use yii\db\Schema;
 
+/**
+ * Database migration
+ * 
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
+ * @since 1.0
+ */
 class m140527_084418_auto_number extends \yii\db\Migration
 {
 
+    /**
+     * @inheritdoc
+     */
     public function safeUp()
     {
         $tableOptions = null;
@@ -21,6 +30,9 @@ class m140527_084418_auto_number extends \yii\db\Migration
         ], $tableOptions);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function safeDown()
     {
         $this->dropTable('{{%auto_number}}');

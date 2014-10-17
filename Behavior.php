@@ -9,6 +9,7 @@ use Exception;
 /**
  * Behavior use to generate formated autonumber.
  * Use at ActiveRecord behavior
+ * 
  * ~~~
  * public function behavior()
  * {

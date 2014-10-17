@@ -7,7 +7,18 @@ use yii\db\StaleObjectException;
 
 /**
  * Validator use to fill autonumber
- *
+ * 
+ * Use to fill attribute with formatet autonumber.
+ * 
+ * Usage at [[$owner]] rules()
+ * 
+ * ~~~
+ * return [
+ *     [['sales_num'], 'mdm\autonumber\NextValueValidator', 'format'=>'SA.'.date('Ymd').'?'],
+ *     ...
+ * ]
+ * ~~~
+ * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
@@ -18,12 +29,14 @@ class NextValueValidator extends \yii\validators\Validator
      * be assigned to the attributes being validated if they are empty. The signature of the PHP callable
      * should be as follows,
      *
-     * ~~~
+     * ```php
      * function foo($model, $attribute) {
      *     // compute value
      *     return $value;
      * }
-     * ~~~
+     * ```
+     * 
+     * @see [[Behavior::$value]]
      */
     public $format;
 
@@ -70,8 +83,8 @@ class NextValueValidator extends \yii\validators\Validator
     /**
      * Calculate next value
      * @param  \yii\db\ActiveRecord $object
-     * @param  string               $attribute
-     * @return int
+     * @param  string $attribute
+     * @return integer
      */
     public function nextValue($object, $attribute)
     {
@@ -111,7 +124,7 @@ class NextValueValidator extends \yii\validators\Validator
     }
 
     /**
-     * Handle for [[\yii\base\ModelEvent::EVENT_BEFORE_SAVE]]
+     * Handle for [[\yii\db\ActiveRecord::EVENT_BEFORE_INSERT]] and [[\yii\db\ActiveRecord::EVENT_BEFORE_UPDATE]]
      * @param \yii\base\ModelEvent $event
      */
     public function beforeSave($event)
