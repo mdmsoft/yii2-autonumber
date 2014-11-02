@@ -1,20 +1,27 @@
 {
-	"name": "mdmsoft/yii2-autonumber",
-	"description": "Auto number extension for the Yii framework",
-	"keywords": ["yii2"," extension"," autonumber"," behavior"],
-	"license": "BSD-3-Clause",
-	"type": "yii2-extension",
-	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "Misbahul D Munir",
-			"email": "misbahuldmunir@gmail.com"
-		}
-	],
-	"require": {
-		"yiisoft/yii2": "*"
-	},
-	"autoload": {
-		"psr-4": { "mdm\\autonumber\\": "" }
-	}
+    "name": "mdmsoft/yii2-autonumber",
+    "description": "Auto number extension for the Yii framework",
+    "keywords": ["yii2", " extension", " autonumber", " behavior"],
+    "license": "BSD-3-Clause",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Misbahul D Munir",
+            "email": "misbahuldmunir@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "mdm\\autonumber\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }

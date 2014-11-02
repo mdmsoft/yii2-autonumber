@@ -12,19 +12,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist mdmsoft/yii2-autonumber "*"
-```
-
-for dev-master
-
-```
 php composer.phar require --prefer-dist mdmsoft/yii2-autonumber "dev-master"
 ```
 
 or add
 
 ```
-"mdmsoft/yii2-autonumber": "*"
+"mdmsoft/yii2-autonumber": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
