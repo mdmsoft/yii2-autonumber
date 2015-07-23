@@ -14,7 +14,7 @@ use yii\db\StaleObjectException;
  * 
  * ~~~
  * return [
- *     [['sales_num'], 'mdm\autonumber\NextValueValidator', 'format'=>'SA.'.date('Ymd').'?'],
+ *     [['sales_num'], 'nextValue', 'format'=>'SA.'.date('Ymd').'?'],
  *     ...
  * ]
  * ~~~
@@ -97,7 +97,7 @@ class NextValueValidator extends \yii\validators\Validator
         $group = md5(serialize([
             'class' => $this->unique ? get_class($object) : false,
             'group' => $this->group,
-            'attribute' => $this->attribute,
+            'attribute' => $attribute,
             'value' => $value
         ]));
         $model = AutoNumber::findOne($group);
@@ -131,10 +131,10 @@ class NextValueValidator extends \yii\validators\Validator
     {
         /* @var $model AutoNumber */
         list($model, $id) = $event->data;
-        if (isset(static::$_executed[$id])) {
+        if (isset(self::$_executed[$id])) {
             return;
         }
-        static::$_executed[$id] = true;
+        self::$_executed[$id] = true;
         try {
             $model->save();
         } catch (\Exception $exc) {

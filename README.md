@@ -70,7 +70,7 @@ Instead of behavior, you can use this extension as validator
 public function rules()
 {
     return [
-        [['sales_num'],'mdm\autonumber\NextValueValidator','format'=>'SA.'.date('Y-m-d').'.?'],
+        [['sales_num'],'nextValue','format'=>'SA.'.date('Y-m-d').'.?'],
         ...
     ];
 }
