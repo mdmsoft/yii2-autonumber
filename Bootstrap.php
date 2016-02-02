@@ -18,6 +18,7 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        Validator::$builtInValidators['nextValue'] = __NAMESPACE__ . '\NextValueValidator';
+        Validator::$builtInValidators['nextValue'] = __NAMESPACE__ . '\AutonumberValidator';
+        Validator::$builtInValidators['autonumber'] = __NAMESPACE__ . '\AutonumberValidator';
     }
 }

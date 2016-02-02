@@ -22,7 +22,7 @@ use yii\db\StaleObjectException;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class NextValueValidator extends \yii\validators\Validator
+class AutonumberValidator extends \yii\validators\Validator
 {
     /**
      * @var mixed the default value or a PHP callable that returns the default value which will
@@ -76,18 +76,25 @@ class NextValueValidator extends \yii\validators\Validator
     public function validateAttribute($object, $attribute)
     {
         if ($this->isEmpty($object->$attribute)) {
-            $object->$attribute = $this->nextValue($object, $attribute);
+            $eventId = uniqid();
+            $object->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'beforeSave'], [$eventId, $attribute]);
+            $object->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'beforeSave'], [$eventId, $attribute]);
         }
     }
 
     /**
-     * Calculate next value
-     * @param \yii\db\ActiveRecord $object
-     * @param string  $attribute
-     * @return string
+     * Handle for [[\yii\db\ActiveRecord::EVENT_BEFORE_INSERT]] and [[\yii\db\ActiveRecord::EVENT_BEFORE_UPDATE]]
+     * @param \yii\base\ModelEvent $event
      */
-    public function nextValue($object, $attribute)
+    public function beforeSave($event)
     {
+        list($id, $attribute) = $event->data;
+        if (isset(self::$_executed[$id])) {
+            return;
+        }
+
+        /* @var $object \yii\db\ActiveRecord */
+        $object = $event->sender;
         if ($this->format instanceof \Closure) {
             $value = call_user_func($this->format, $object, $attribute);
         } else {
@@ -100,6 +107,7 @@ class NextValueValidator extends \yii\validators\Validator
             'attribute' => $attribute,
             'value' => $value
         ]));
+
         $model = AutoNumber::findOne($group);
         if ($model) {
             $number = $model->number + 1;
@@ -112,28 +120,12 @@ class NextValueValidator extends \yii\validators\Validator
         $model->update_time = time();
         $model->number = $number;
 
-        $eventId = uniqid();
-        $object->on(ActiveRecord::EVENT_BEFORE_INSERT, [$this, 'beforeSave'], [$model, $eventId]);
-        $object->on(ActiveRecord::EVENT_BEFORE_UPDATE, [$this, 'beforeSave'], [$model, $eventId]);
-
         if ($value === null) {
-            return $number;
+            $object->$attribute = $number;
         } else {
-            return str_replace('?', $this->digit ? sprintf("%0{$this->digit}d", $number) : $number, $value);
+            $object->$attribute = str_replace('?', $this->digit ? sprintf("%0{$this->digit}d", $number) : $number, $value);
         }
-    }
 
-    /**
-     * Handle for [[\yii\db\ActiveRecord::EVENT_BEFORE_INSERT]] and [[\yii\db\ActiveRecord::EVENT_BEFORE_UPDATE]]
-     * @param \yii\base\ModelEvent $event
-     */
-    public function beforeSave($event)
-    {
-        /* @var $model AutoNumber */
-        list($model, $id) = $event->data;
-        if (isset(self::$_executed[$id])) {
-            return;
-        }
         self::$_executed[$id] = true;
         try {
             $model->save();
