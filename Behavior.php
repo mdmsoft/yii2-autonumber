@@ -87,7 +87,7 @@ class Behavior extends \yii\behaviors\AttributeBehavior
                 }
                 $model->update_time = time();
                 $model->number = $number;
-                $model->save();
+                $model->save(false);
             } catch (Exception $exc) {
                 if ($exc instanceof StaleObjectException) {
                     $repeat = true;

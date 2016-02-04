@@ -14,7 +14,7 @@ use yii\db\StaleObjectException;
  * 
  * ~~~
  * return [
- *     [['sales_num'], 'nextValue', 'format'=>'SA.'.date('Ymd').'?'],
+ *     [['sales_num'], 'autonumber', 'format'=>'SA.'.date('Ymd').'?'],
  *     ...
  * ]
  * ~~~
@@ -128,7 +128,7 @@ class AutonumberValidator extends \yii\validators\Validator
 
         self::$_executed[$id] = true;
         try {
-            $model->save();
+            $model->save(false);
         } catch (\Exception $exc) {
             $event->isValid = false;
             if ($this->throwIsStale || !($exc instanceof StaleObjectException)) {
