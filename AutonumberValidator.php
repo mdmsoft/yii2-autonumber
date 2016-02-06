@@ -95,10 +95,10 @@ class AutonumberValidator extends \yii\validators\Validator
 
         /* @var $object \yii\db\ActiveRecord */
         $object = $event->sender;
-        if ($this->format instanceof \Closure) {
-            $value = call_user_func($this->format, $object, $attribute);
+        if (is_string($this->format) && method_exists($object, $this->format)) {
+            $value = call_user_func([$object, $this->format], $object, $attribute);
         } else {
-            $value = $this->format;
+            $value = is_callable($this->format) ? call_user_func($this->format, $object, $attribute) : $this->format;
         }
 
         $group = md5(serialize([

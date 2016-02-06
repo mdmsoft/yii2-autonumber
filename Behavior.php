@@ -66,7 +66,11 @@ class Behavior extends \yii\behaviors\AttributeBehavior
      */
     protected function getValue($event)
     {
-        $value = parent::getValue($event);
+        if (is_string($this->value) && method_exists($this->owner, $this->value)) {
+            $value = call_user_func([$this->owner, $this->value], $event);
+        } else {
+            $value = is_callable($this->value) ? call_user_func($this->value, $event) : $this->value;
+        }
         $group = md5(serialize([
             'class' => $this->unique ? get_class($this->owner) : false,
             'group' => $this->group,
