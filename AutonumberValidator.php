@@ -51,6 +51,11 @@ class AutonumberValidator extends \yii\validators\Validator
     public $group;
 
     /**
+     * @var bool
+     */
+    public $alnum;
+
+    /**
      * @var boolean
      */
     public $unique = true;
@@ -101,39 +106,12 @@ class AutonumberValidator extends \yii\validators\Validator
             $value = is_callable($this->format) ? call_user_func($this->format, $object, $attribute) : $this->format;
         }
 
-        $group = md5(serialize([
+        $group = [
             'class' => $this->unique ? get_class($object) : false,
             'group' => $this->group,
             'attribute' => $attribute,
-            'value' => $value
-        ]));
-
-        $model = AutoNumber::findOne($group);
-        if ($model) {
-            $number = $model->number + 1;
-        } else {
-            $model = new AutoNumber([
-                'group' => $group
-            ]);
-            $number = 1;
-        }
-        $model->update_time = time();
-        $model->number = $number;
-
-        if ($value === null) {
-            $object->$attribute = $number;
-        } else {
-            $object->$attribute = str_replace('?', $this->digit ? sprintf("%0{$this->digit}d", $number) : $number, $value);
-        }
-
+        ];
+        $object->$attribute = AutoNumber::generate($value, $this->alnum, $this->digit, $group);
         self::$_executed[$id] = true;
-        try {
-            $model->save(false);
-        } catch (\Exception $exc) {
-            $event->isValid = false;
-            if ($this->throwIsStale || !($exc instanceof StaleObjectException)) {
-                throw $exc;
-            }
-        }
     }
 }
