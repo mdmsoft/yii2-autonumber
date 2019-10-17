@@ -50,15 +50,15 @@ Once the extension is installed, simply modify your ActiveRecord class:
 ```php
 public function behaviors()
 {
-	return [
-		[
-			'class' => 'mdm\autonumber\Behavior',
-			'attribute' => 'sales_num', // required
-			'group' => $this->id_branch, // optional
-			'value' => 'SA.'.date('Y-m-d').'.?' , // format auto number. '?' will be replaced with generated number
-			'digit' => 4 // optional, default to null. 
-		],
-	];
+    return [
+        [
+            'class' => 'mdm\autonumber\Behavior',
+            'attribute' => 'sales_num', // required
+    		'group' => $this->id_branch, // optional
+    		'value' => 'SA.'.date('Y-m-d').'.?' , // format auto number. '?' will be replaced with generated number
+    		'digit' => 4 // optional, default to null. 
+    	],
+    ];
 }
 
 // it will set value $model->sales_num as 'SA.2014-06-25.0001'
@@ -75,5 +75,23 @@ public function rules()
     ];
 }
 ```
+
+New Format
+----------
+
+Since version 1.5 we introduce new format of number. Now we use `{}` to evaluate as date and number of digit represented as number of `?`.
+
+```php
+public function rules()
+{
+    return [
+        [['sales_num'], 'autonumber', 'format' => 'SA/{Y/m}/?.???'],
+        ...
+    ];
+}
+
+// it will set value $model->sales_num as 'SA/2019/10/0.001'
+```
+
 
 - [Api Documentation](http://mdmsoft.github.io/yii2-autonumber/index.html)
