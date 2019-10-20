@@ -91,6 +91,28 @@ public function rules()
 }
 
 // it will set value $model->sales_num as 'SA/2019/10/0.001'
+
+
+public function behaviors()
+{
+    return [
+        [
+            'class' => 'class' => 'mdm\autonumber\Behavior',
+            'attribute' => 'sales_num', // required
+            'value' => 'SA/{Y/m}/?.???'
+        ]
+    ];
+}
+
+// another usage
+
+public function actionCreate()
+{
+    $model = new Sales()
+    $model->load(Yii::$app->request->post());
+    $model->sales_num = mdm\autonumber\AutoNumber::generate('SA/{Y/m}/?.???');
+    ...
+}
 ```
 
 

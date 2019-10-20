@@ -57,10 +57,10 @@ class AutoNumber extends \yii\db\ActiveRecord
 
     /**
      * 
-     * @param string $format
-     * @param bool $alnum
-     * @param int $digit
-     * @param array $group
+     * @param string $format value inner `{}` will evaluate as date. Number of digit represented as number of `?`.
+     * @param bool $alnum if true will generate alfanumeric value. If false generate only number.
+     * @param int $digit For compatibility purpose.
+     * @param array $group For compatibility purpose.
      * @return string
      */
     public static function generate($format, $alnum = false, $digit = null, array $group = [])
@@ -72,7 +72,7 @@ class AutoNumber extends \yii\db\ActiveRecord
         }
 
         if (empty($group) && strlen($format) < 32) {
-            $key = $format;
+            $key = (string)$format;
         } else {
             $group['value'] = $format;
             $key = md5(serialize($group));
