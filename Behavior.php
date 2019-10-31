@@ -2,9 +2,8 @@
 
 namespace mdm\autonumber;
 
-use yii\db\StaleObjectException;
+use yii\behaviors\AttributeBehavior;
 use yii\db\BaseActiveRecord;
-use Exception;
 
 /**
  * Behavior use to generate formated autonumber.
@@ -17,8 +16,7 @@ use Exception;
  *         ...
  *         [
  *             'class' => 'mdm\autonumber\Behavior',
- *             'value' => date('Ymd').'.?', // ? will replace with generated number
- *             'digit' => 6, // specify this if you need leading zero for number
+ *             'value' => 'INV-{Ymd}-????', // ? will replace with generated number
  *         ]
  *     ]
  * }
@@ -27,7 +25,7 @@ use Exception;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class Behavior extends \yii\behaviors\AttributeBehavior
+class Behavior extends AttributeBehavior
 {
     /**
      * @var integer digit number of auto number

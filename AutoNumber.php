@@ -2,6 +2,9 @@
 
 namespace mdm\autonumber;
 
+use Yii;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "auto_number".
  *
@@ -12,7 +15,7 @@ namespace mdm\autonumber;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class AutoNumber extends \yii\db\ActiveRecord
+class AutoNumber extends ActiveRecord
 {
 
     /**

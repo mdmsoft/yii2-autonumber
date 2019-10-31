@@ -3,7 +3,7 @@
 namespace mdm\autonumber;
 
 use yii\db\ActiveRecord;
-use yii\db\StaleObjectException;
+use yii\validators\Validator;
 
 /**
  * Validator use to fill autonumber
@@ -22,7 +22,7 @@ use yii\db\StaleObjectException;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class AutonumberValidator extends \yii\validators\Validator
+class AutonumberValidator extends Validator
 {
     /**
      * @var mixed the default value or a PHP callable that returns the default value which will
