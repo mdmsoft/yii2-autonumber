@@ -81,10 +81,10 @@ class AutoNumber extends ActiveRecord
             $key = md5(serialize($group));
         }
 
-        $command = Yii::$app->db->createCommand();
-        $command->setSql('SELECT [[number]] FROM {{auto_number}} WHERE [[group]]=:key');
+        $command = \Yii::$app->db->createCommand();
+        $command->setSql('SELECT [[number]] FROM {{%auto_number}} WHERE [[group]]=:key');
         $counter = $command->bindValue(':key', $key)->queryScalar() + 1;
-        $command->upsert('auto_number', ['group' => $key, 'number' => $counter, 'optimistic_lock' => 1, 'update_time' => time()])->execute();
+        $command->upsert('{{%auto_number}}', ['group' => $key, 'number' => $counter, 'optimistic_lock' => 1, 'update_time' => time()])->execute();
         $number = $alnum ? strtoupper(base_convert($counter, 10, 36)) : (string) $counter;
 
         if ($format === null) {
